@@ -1,0 +1,261 @@
+﻿@model FinalProject.Models.Product
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Buy</title>
+    <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+    </script>
+
+    <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <style>
+    .flat-table {
+
+    display: block;
+    font-family: sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 115%;
+    overflow: auto;
+    width: auto;
+    position: absolute;
+    left: 38%;
+    top: 25%;
+    }
+    .flat-table th {
+    background-color: #70c469;
+    color: white;
+    font-weight: normal;
+    padding: 20px 30px;
+    text-align: center;
+    }
+    .flat-table td {
+    background-color: #eeeeee;
+    color: #6f6f6f;
+    padding: 20px 30px;
+    }
+    .form{
+         
+         left: 12%;
+         top: 20%;
+         position:absolute;
+    }
+    </style>
+    <script>
+        var app = angular.module("Customer", []);
+       
+         
+
+        app.controller("ProductViewModel", function ($scope, $http, $log, $window) {
+            $scope.Products = {};
+            $scope.Load = function () {
+                $http({ method: "GET", url: "GetProductByJson" }).
+                success(function (data, status, headers, config) {
+                   
+                    $scope.Products = data;
+                });
+            };
+            $scope.Load();
+            $scope.options = [{
+                name: 'SearchByName',
+                value: 'Name'
+            }, {
+                Name: 'SearchByPrice',
+                value: 'Price'
+            }
+            ];
+            $scope.selected = $scope.options[0].value;
+            $scope.url = "";
+            $scope.ClickMeToRedirect = function () {
+                var url = "http://" + $window.location.host + "/Buyer/"+$scope.url;
+                $log.log(url);
+                $window.location.href = url;
+            };
+
+            $scope.product = {
+
+                "PID": "",
+                "namep": "",
+                "price1": "",
+                "price2": "",
+                "amount":""
+               
+            };
+            $scope.AddOrder = function (data) {
+                if (data.amount == 0)
+                    alert('Out of stock');
+                else {
+                    $scope.product.PID = data.PID;
+                    $scope.url = "CustomerFormBuy/?PID=" + $scope.product.PID;
+                    $scope.ClickMeToRedirect();
+                }
+
+
+
+
+
+
+
+            };
+           
+            $scope.CheckData = function (data) {
+                if (!jQuery.isEmptyObject(data))
+                    $scope.Products = data;
+                else {
+                    window.alert('Not received results');
+                    $scope.Load();
+                }
+            }
+            $scope.SearchByName = function () {
+                $http({ method: "POST", data: $scope.product, url: "http://" + $window.location.host + "/Buyer/" + "ShowSearchByName" }).
+                success(function (data, status, headers, config) {
+                    $scope.CheckData(data);
+                });
+            };
+                $scope.SearchByPrice = function () {
+                    $http({ method: "POST", data: $scope.product, url: "http://" + $window.location.host + "/Buyer/" + "ShowSearchByPrice" }).
+                    success(function (data, status, headers, config) {
+                        $scope.CheckData(data);
+                           
+                        
+                        
+                        
+                    });
+                    
+
+
+
+                };
+               
+             
+                
+               
+                                  
+               
+                
+                
+                $scope.Search = function () {
+                    if ($scope.selected == 'Name') {
+                        $scope.SearchByName();
+                    }
+                    if ($scope.selected == 'Price')
+                    {
+                        $scope.product.price1 = parseFloat($scope.product.price1);
+                        $scope.product.price2 = parseFloat($scope.product.price2);
+                        if (($scope.product.price1) > ($scope.product.price2)) {
+                            window.alert('The range of prices not valid');
+
+                        }
+                        else
+                            $scope.SearchByPrice();
+                    }
+                };
+
+            });
+        
+
+
+            
+        
+
+
+
+
+    </script>
+
+</head>
+<body ng-app="Customer">
+    <div ng-controller="ProductViewModel">
+        @Html.Partial("PanelProducts");
+        <div id="intro">
+            <form name="formCust">
+                <table class="form">
+                    <tr>
+                        <td><select  ng-options="opt.value as opt.value for opt in options" ng-model="selected"></select>
+                        <td>
+                            <div role="alert">
+                                <div class="Search" ng-if="selected == 'Name'">
+
+                                    <input id="namep" name="productname" ng-model="product.namep" required />
+
+                                    <span ng-show="formCust.productname.$error.required">
+                                        <font color="red">Required field!</font>
+                                    </span>
+                                </div>
+
+                                <div class="Search1" ng-if="selected == 'Price'">
+                                    Price range:<input required id="pricep1" name="productprice1" ng-model="product.price1" ng-pattern="/^([0-9]+([/.][0-9]+)?)$/" />-<input required id="pricep2" class="SearchTxtBox" name="productprice2" ng-model="product.price2" ng-pattern="/^([0-9]+([/.][0-9]+)?)$/" />
+                                    <span ng-show="formCust.productprice1.$error.pattern||formCust.productprice2.$error.pattern">
+                                        <font color="red">Price of product is Invalid!</font>
+                                        
+                                        
+                                    </span>
+
+                                    <span ng-show="formCust.productprice1.$error.required||formCust.productprice2.$error.required">
+                                        <font color="red"> Required field!</font>
+                                       
+                                        
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <a   ng-class="{'button disabled':formCust.$invalid,'button':formCust.$valid}" required ng-click="Search()" />Search
+                        </td>
+                        
+                            <td><a class="button" required ng-click="Load()" />Reload</td>
+                     
+                    </tr>
+
+                </table>
+
+
+            </form>
+            </div>
+            <div id="content">
+                <table class="flat-table">
+                    <tr>
+                        <td><h3>Name </h3></td>
+                        <td><h3>PID </h3></td>
+                        <td><h3>Amount </h3></td>
+                        <td><h3>Price </h3></td>
+                    </tr>
+                    <tr ng-repeat="product in Products" ng-if="product.mode==true">
+
+                        <td>{{product.namep}}</td>
+                        <td>{{product.PID}}</td>
+                        <td>{{product.amount}}</td>
+                        <td>{{product.price}}</td>
+                        <td><a ng-click="AddOrder( product )" class="button">Buy</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+   
+    
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+</head>
+<style type="text/css">
+    .Design {
+        position: fixed;
+        left: 25%;
+        top: 25%;
+    }
+</style>
+
+<body>
+    
+<script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+        </script>
+
+    @Html.Partial("HomePanel");
+    <div class="Design" id="intro">
+        <h1>Welcome to LAC store!</h1>
+    </div>
+
+        
+</body>
+   
+        
+    
+
+</html>

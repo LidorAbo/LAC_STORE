@@ -1,0 +1,45 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <link type="text/css" href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+    <title>Management</title>
+</head>
+<body>
+    <style type="text/css">
+        .Design {
+            position: fixed;
+            left: 40%;
+            top: 25%;
+        }
+    </style>
+        
+        <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+        </script>
+    @Html.Partial("PanelManagement");
+    <div class="Design">
+        <a href="/AddProduct"   class="button large">Add Product</a>
+        <a href="/Update" class="button large">Update Product</a>
+        <a href="/Delete" class="button large">Delete Product</a>
+        <a href="/ViewOrders" class="button large">View Orders</a>
+       
+        
+       
+    </div>
+    
+</body>
+</html>

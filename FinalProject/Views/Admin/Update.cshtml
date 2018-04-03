@@ -1,0 +1,88 @@
+﻿@model FinalProject.ModelView.ProductViewModel
+@using FinalProject.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Update</title>
+</head>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+<body>
+    <style type="text/css">
+        .form {
+            position: absolute;
+            left: 12%;
+            top: 20%;
+        }
+          .flat-table {
+
+  display: block;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 115%;
+  overflow: auto;
+  width: auto;
+  position: absolute;
+            left: 40%;
+            top: 33%;
+}
+.flat-table th {
+  background-color: #70c469;
+  color: white;
+  font-weight: normal;
+  padding: 20px 30px;
+  text-align: center;
+}
+.flat-table td {
+  background-color: #eeeeee;
+  color: #6f6f6f;
+  padding: 20px 30px;
+}
+    </style>
+    <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+    </script>
+    @Html.Partial("PanelManagement");
+          <div id="intro">
+                @using (Html.BeginForm("UpdateDatabase", "Admin", FormMethod.Post))
+            {
+                    <table class="form">
+                        <tr>
+                            <td><h3>PID:</h3></td>
+                            <td>@Html.TextBoxFor(p => p.product.PID)    <font color="red"  >   @Html.ValidationMessageFor(p => p.product.PID)</font></td>
+                        </tr>
+                        
+
+
+                        <tr>
+                            <td><h3>Amount:</h3></td>
+                            <td>@Html.TextBoxFor(p => p.product.amount)   <font color="red">   @Html.ValidationMessageFor(p => p.product.amount)</font></td>
+
+                        </tr>
+                        <tr>
+                            <td><a onclick="$(this).closest('form').submit()" id="Submit1" class="button">Update Product</a></td>
+                        </tr>
+
+
+
+
+
+                    </table>
+                }
+                <br />
+            </div>
+        @Html.Partial("DisplayProducts", Model)
+</body>
+</html>

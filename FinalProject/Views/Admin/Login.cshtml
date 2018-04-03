@@ -1,0 +1,71 @@
+﻿@model FinalProject.Models.User
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminPage</title>
+    <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+   
+</head>
+   
+<body>  
+    <style type="text/css">
+      .Design {
+    position: fixed;
+    left: 40%;
+    top: 25%;
+}
+      .text{
+          position:absolute;
+           left: 40%;
+           top: 25%;
+      }
+    </style>
+        @Html.Partial("LoginPanel");
+        <div id="intro" class="Design">
+            @using (Html.BeginForm("ValidateAsServerLevel", "Admin", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td><h3>Login: </h3></td>
+                    </tr>
+                    <tr>
+                        <td><h3>UserName:</h3></td>
+                        <td> @Html.TextBoxFor(u => u.UserName)<font color="red"> @Html.ValidationMessageFor(u => u.UserName)</font></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Password:</h3></td>
+                        <td>@Html.PasswordFor(u => u.Password) <font color="red">@Html.ValidationMessageFor(p => p.Password)</font></td>
+
+
+                    </tr>
+                    <tr>
+                        <td><a onclick="$(this).closest('form').submit()" id="Submit1" class="button">Login</a></td>
+                    </tr>
+
+
+                </table>
+            }
+
+        </div>
+    </div> 
+
+           
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

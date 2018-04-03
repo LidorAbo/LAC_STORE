@@ -1,0 +1,53 @@
+﻿@model FinalProject.ModelView.ProductViewModel
+@using FinalProject.Models
+<style>
+     .flat-table {
+
+  display: block;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 115%;
+  overflow: auto;
+  width: auto;
+  position: absolute;
+            left: 40%;
+            top: 25%;
+}
+.flat-table th {
+  background-color: #70c469;
+  color: white;
+  font-weight: normal;
+  padding: 20px 30px;
+  text-align: center;
+}
+.flat-table td {
+  background-color: #eeeeee;
+  color: #6f6f6f;
+  padding: 20px 30px;
+}
+</style>
+<div id="content">
+    <table class="flat-table">
+        <tr>
+            <td><h3>Name </h3></td>
+            <td><h3>PID </h3></td>
+            <td><h3>Amount </h3></td>
+            <td><h3>Price </h3></td>
+        </tr>
+        @foreach (Product product in Model.products)
+            {
+                if (product.mode != false)
+                {
+                <tr>
+                    <td> @product.namep</td>
+                    <td> @product.PID</td>
+                    <td> @product.amount</td>
+                    <td> @product.price</td>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+
+

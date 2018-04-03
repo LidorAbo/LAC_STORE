@@ -1,0 +1,68 @@
+﻿@using FinalProject.Models
+@model List<Order>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+             <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+
+    </head>
+<body>
+    <style>
+        .flat-table {
+            display: block;
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 115%;
+            overflow: auto;
+            width: auto;
+            position: absolute;
+            left: 31%;
+            top: 24%;
+        }
+
+            .flat-table th {
+                background-color: #70c469;
+                color: white;
+                font-weight: normal;
+                padding: 20px 30px;
+                text-align: center;
+            }
+
+            .flat-table td {
+                background-color: #eeeeee;
+                color: #6f6f6f;
+                padding: 20px 30px;
+            }
+    </style>
+    @Html.Partial("PanelManagement");
+    <div id="content">
+        <table class="flat-table">
+
+            <tr>
+                <td><h3>Name </h3></td>
+                <td><h3>Name of product </h3></td>
+                <td><h3>Amount </h3></td>
+                <td><h3>Date </h3></td>
+            </tr>
+            @foreach (Order order in Model.ToList())
+            {
+                if (order.mode == true)
+                {
+                    <tr>
+                        <td> @order.namec</td>
+                        <td> @order.namep</td>
+                        <td> @order.amount</td>
+                        <td> @order.date.ToShortDateString()</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</body>
+</html>
+

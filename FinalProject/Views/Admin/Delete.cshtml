@@ -1,0 +1,71 @@
+﻿@model FinalProject.ModelView.ProductViewModel
+@using FinalProject.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html >
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Update</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+    
+    
+</head>
+
+
+<body>
+    <style type="text/css">
+       
+        
+      
+        .form{
+         
+         left: 12%;
+         top: 20%;
+         position:absolute;
+    
+      
+
+
+
+        
+    </style>
+    <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+    </script>
+        @Html.Partial("PanelManagement");
+
+        <div id="intro">
+            @using (Html.BeginForm("DeleteFromDatabse", "Admin", FormMethod.Post))
+            {
+                <table class="form">
+                    <tr>
+                        <td>PID:
+                        @Html.TextBoxFor(p => p.product.PID)<font color="red"> @Html.ValidationMessageFor(p => p.product.PID)</font></td>
+                    </tr>
+                    <tr>
+                        <td><a onclick="$(this).closest('form').submit()" id="Submit1" class="button">Delete Product</a></td>
+                    </tr>
+
+
+
+                </table>
+            }
+            <br />
+        </div>
+        
+
+        
+        @Html.Partial("DisplayProducts", Model)
+</body>
+</html>

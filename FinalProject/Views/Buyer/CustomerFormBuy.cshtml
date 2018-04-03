@@ -1,0 +1,67 @@
+﻿@model FinalProject.Models.Order
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <style type="text/css">
+         .Design {
+    position: fixed;
+    left: 40%;
+    top: 25%;
+  
+}
+    </style>
+    <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+    </script>
+    @Html.Partial("PanelProducts");
+    <div class="Design">
+        @using (Html.BeginForm("AddOrderToDatabase", "Buyer", FormMethod.Post))
+        {
+            @Html.HiddenFor(p => p.date);
+            @Html.HiddenFor(p => p.PID);
+            @Html.HiddenFor(p => p.namep);
+            <table>
+                <tr>
+                    <td><h3>Order details:</h3></td>
+                </tr>
+                <tr>
+                    <td><h3>Full name:</h3></td>
+                    <td> @Html.TextBoxFor(p => p.namec) <font color="red">@Html.ValidationMessageFor(p => p.namec)</font></td>
+                </tr>
+                <tr>
+                    <td><h3>Amount:</h3></td>
+                    <td> @Html.TextBoxFor(p => p.amount) <font color="red">@Html.ValidationMessageFor(p => p.amount)</font></td>
+                </tr>
+                <tr>
+                    <td><a onclick="$(this).closest('form').submit()" id="Submit1" class="button">Approve Shopping</a></td>
+                </tr>
+               
+                
+                
+
+
+
+            </table>
+        }
+    </div>
+</body>
+</html>

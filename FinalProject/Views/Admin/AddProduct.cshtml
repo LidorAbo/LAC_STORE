@@ -1,0 +1,69 @@
+﻿@model FinalProject.Models.Product
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <link href="~/Content/strive-aio/css/main.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+
+<body>
+    <style type="text/css">
+        .Design {
+            position: fixed;
+            left: 40%;
+            top: 25%;
+        }
+    </style>
+     <script type="text/javascript">
+            @{
+               if (TempData["msg"] != null){
+                   @:alert('@(TempData["msg"])');
+               }
+           }
+        </script>
+    @Html.Partial("PanelManagement");
+    <div id="intro">
+        <div class="Design">
+            @using (Html.BeginForm("AddToDatabase", "Admin", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td><h3>Name of product:</h3></td>
+                        <td> @Html.TextBoxFor(p => p.namep)<font color="red">&nbsp;@Html.ValidationMessageFor(p => p.namep)</font></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Product Id:</h3></td>
+                        <td> @Html.TextBoxFor(p => p.PID)<font color="red">  @Html.ValidationMessageFor(p => p.PID)</font></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Price:</h3></td>
+                        <td>@Html.TextBoxFor(p => p.price)<font color="red"> @Html.ValidationMessageFor(p => p.price)</font></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Amount:</h3></td>
+                        <td>@Html.TextBoxFor(p => p.amount)<font color="red"> @Html.ValidationMessageFor(p => p.amount)</font></td>
+                    </tr>
+                    <tr>
+                        <td><a onclick="$(this).closest('form').submit()" id="Submit1" class="button">Add Product</a></td>
+                    </tr>
+
+
+
+                </table>
+            }
+        </div>
+        </div>
+        
+</body>
+</html>
+
